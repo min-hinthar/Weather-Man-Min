@@ -21,23 +21,26 @@
     <main class="body-container">
     <!-- section for text input area -->
         <div class="row">
-            <section class="typeSeach-container">
+            <side class="typeSeach-container">
                 <div class="typeSearch-div">
-                    <!-- create form element and class+id for search input -->
+                    <!-- create form element with class+id for search input in text form-->
                     <form class="typeSearch-form" id="citySearch-form">
                         <h5>Search for a city anywhere on Earth!</h5>
                         <input id="city" class="textSearch-input" type="text" placeholder="...type a city name e.g Los Angeles">
                     </form>    
+                </div>
+                <!-- create local storage list of cities already searched by user  -->
+                <div class="past-cities" id="past-cities-History">    
                 </div> 
-            </section>
+            </side>
             <!-- section to display current city search results -->
-            <section class="searchResults">
-                <div class="currentCity">
-                    <div class="displayCurrentCity">
+            <section class="searchResults-container">
+                <div class="display-searchResults-container">
+                    <div class="display-CurrentCity-div">
                         <h3 id="currentCity-Forecast-h3">
                             Current City - Forecast
                         </h3>
-                        <div id="currentCity-div">
+                        <div id="currentCity-Forecast-div">
                         </div>    
                     </div>
                     <div id="fiveDays-Forecast">
