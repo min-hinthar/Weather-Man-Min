@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Weather-Mann Minn!</title>
+    <!-- Bootstrap linked for CSS -->
+    <!-- https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -15,16 +18,44 @@
             <h3>Your No.1 trusted source of shifty weather phenomenons throughout the WORLD!</h3>
         </div>
     </header>
+    <main class="body-container">
     <!-- section for text input area -->
-    <section class="typeSeach-container">
-        <div class="typeSearch-div">
-            <h5>Search for a city!</h5>
-            <input class="textInput" type="text" placeholder="...type a city name e.g Los Angeles">
-        </div> 
-    </section>
-    <!-- section to display search results -->
-    <section class="searchResults">
-        <div class="userSearch"></div>
-    </section>
+        <div class="row">
+            <section class="typeSeach-container">
+                <div class="typeSearch-div">
+                    <!-- create form element and class+id for search input -->
+                    <form class="typeSearch-form" id="citySearch-form">
+                        <h5>Search for a city anywhere on Earth!</h5>
+                        <input id="city" class="textSearch-input" type="text" placeholder="...type a city name e.g Los Angeles">
+                    </form>    
+                </div> 
+            </section>
+            <!-- section to display current city search results -->
+            <section class="searchResults">
+                <div class="currentCity">
+                    <div class="displayCurrentCity">
+                        <h3 id="currentCity-Forecast-h3">
+                            Current City - Forecast
+                        </h3>
+                        <div id="currentCity-div">
+                        </div>    
+                    </div>
+                    <div id="fiveDays-Forecast">
+                        <h3 id="fiveDays-Forecast-h3">
+                            Current City - 5 Days Forecast
+                        </h3>
+                        <div id="fiveDays-Forecast-div">
+                        </div> 
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Bootstrap linked for Script -->
+    <!-- https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- JQuery linked to Script -->
+    <!-- https://www.w3schools.com/jquery/jquery_get_started.asp -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>
