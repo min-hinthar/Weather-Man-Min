@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.page-header h1 {
+    background-image: -moz-linear-gradient(90deg, rgb(18, 18, 174), rgb(75, 10, 167) );
+}
+
+body {
+display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.row {
+    display: inline-block;
+    flex-direction: column;
+}
