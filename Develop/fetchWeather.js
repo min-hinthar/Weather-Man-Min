@@ -5,12 +5,13 @@ const getCoordinatesAPIurl = `https://api.openweathermap.org/geo/1.0/direct?q={c
 
 
 // WHEN I search for a city
-let submitBtn = document.getElementById('searchBtn')
-let citySearchInputEl = document.getElementById('citySearch-input')
-let currentCityDisplay = document.getElementById('display-CurrentCity-div')
-let fiveDaysForecast = document.getElementById('fiveDays-Forecast')
-let pastCitiesHistory = document.getElementById('past-cities-History')
-let cities = []
+let submitBtn = document.querySelector('#searchBtn');
+let citySearchInputEl = document.querySelector('#citySearch-input');
+let currentCityDisplay = document.querySelector('#display-CurrentCity-div');
+let currentCityForecastDisplay = document.querySelector('#currentCity-Forecast-div');
+let fiveDaysForecast = document.querySelector('#fiveDays-Forecast');
+let pastCitiesHistory = document.querySelector('#past-cities-History');
+let cities = [];
 
 $(document).ready(function() {
     $(submitBtn).click(function (event) {
@@ -26,8 +27,9 @@ $(document).ready(function() {
         }
         saveCityHistory();
     });
-        // save searched cities to local storage as 'cities' key
-        let saveCityHistory = function () {
+    
+    // save searched cities to local storage as 'cities' key
+    let saveCityHistory = function () {
         localStorage.setItem("cities", JSON.stringify(cities));
         // console.log(saveCityHistory);
     };
@@ -38,6 +40,7 @@ $(document).ready(function() {
         response.json()
         .then(function(data){
             console.log(data);
+            displayCurrentCity(data, city);
         })
     });
     }
@@ -56,17 +59,47 @@ $(document).ready(function() {
 });
 
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
-let displayCurrentCity
+let displayCurrentCity = function (data, city){
+    // reset previous searched content
+    currentCityDisplay.textContent="";
+    currentCityDisplay.textContent= $(city);
+
 // WHEN I view current weather conditions for that city
-
-
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
+    // create date element as h4 to display next to current city h3
+    let currentDate = document.createElement("h4");
+    currentDate.textContent= luxon(data.current.dt.value).format("MM/DD/YYYY");
+    currentCityDisplay.appendChild(currentDate);
+
+    // create icon representation element as img to display in div of current city forecast
+    let currentCityIcon = document.createElement("img");
+    currentCityIcon.setAttribute(current.weather[0].icon);
+    currentCityDisplay.appendChild(currentCityIcon);
+    
+    // create temperature element as h4 to display temperature data
+    let currentTemperature = document.createElement("h4");
+    currentTemperature.textContent = " Temp: " + current.temp + " °F";
+    currentCityForecastDisplay.appendChild(currentTemperature);
+
+    // create wind element as h4 to display wind data
+    let currentWind = document.createElement("h4");
+    currentWind.textContent = " Wind: " + current.wind + " MPH";
+    currentCityForecastDisplay.appendChild(currentWind);
+
+    // create humidity element as h4 to display humidity data
+    let currentHumidity = document.createElement("h4");
+    currentHumidity.textContent = " Humidity: " + current.humidity + " %";
+    currentCityForecastDisplay.appendChild(currentHumidity);
 
 // WHEN I view the UV index
-
-
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+
+    let currentUVIndex = document.createElement("h4");
+    currentUVIndex.textContent = " UV Index:" + current.uvi;
+    currentCityForecastDisplay.appendChild(currentUVIndex); 
+}
+
 
 
 // WHEN I view future weather conditions for that city
