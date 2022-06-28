@@ -17,21 +17,20 @@ $(document).ready(function() {
         event.preventDefault();
        let city = citySearchInputEl.value.trim();
         if (city) {
-            // fetch city current weather forecast
+            // fetch user search input city current + 5 days weather forecast
             fetchCoordinates(city);
-            // fetch current city 5 days forecast
-            // fetch5DaysCity(city);
             // reset type input value
             citySearchInputEl.value="";
         } else {
             alert("Please enter a valid city name on Earth!")
         }
-        // save to local storage
-        // saveSearch();
+        saveCityHistory();
     });
-        // let saveSearch = function (){
-        //     localStorage.setItem('city'.json.stringify(cities));
-        // };
+        // save searched cities to local storage as 'cities' key
+        let saveCityHistory = function () {
+        localStorage.setItem("cities", JSON.stringify(cities));
+        // console.log(saveCityHistory);
+    };
 
     let fetchCurrentCity = function(lat, lon){
      fetch(weatherAPIurl.replace("{lat}", lat).replace("{lon}", lon))
@@ -57,7 +56,7 @@ $(document).ready(function() {
 });
 
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
-
+let displayCurrentCity
 // WHEN I view current weather conditions for that city
 
 
