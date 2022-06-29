@@ -40,7 +40,7 @@ $(document).ready(function() {
         response.json()
         .then(function(data){
             console.log(data);
-            displayCurrentCity(data, city);
+            // displayCurrentCity(data);
         })
     });
     }
@@ -52,6 +52,7 @@ $(document).ready(function() {
              var lat = data[0].lat;
              var lon = data[0].lon;
             fetchCurrentCity(lat, lon);
+            displayCurrentCity(data, city);
             })
         })
     }
@@ -67,36 +68,36 @@ let displayCurrentCity = function (data, city){
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
-    // create date element as h4 to display next to current city h3
-    let currentDate = document.createElement("h4");
-    currentDate.textContent= luxon(data.current.dt.value).format("MM/DD/YYYY");
+    // create date element as a div to display next to current city 
+    let currentDate = document.createElement("div");
+    currentDate.textContent= (data.current.dt).format("MM/DD/YYYY");
     currentCityDisplay.appendChild(currentDate);
 
     // create icon representation element as img to display in div of current city forecast
     let currentCityIcon = document.createElement("img");
-    currentCityIcon.setAttribute(current.weather[0].icon);
+    currentCityIcon.setAttribute(data.current.weather[0].icon);
     currentCityDisplay.appendChild(currentCityIcon);
     
-    // create temperature element as h4 to display temperature data
-    let currentTemperature = document.createElement("h4");
-    currentTemperature.textContent = " Temp: " + current.temp + " °F";
+    // create temperature element as div to display temperature data
+    let currentTemperature = document.createElement("div");
+    currentTemperature.textContent = " Temp: " + $(data.current.temp) + " °F";
     currentCityForecastDisplay.appendChild(currentTemperature);
 
-    // create wind element as h4 to display wind data
-    let currentWind = document.createElement("h4");
-    currentWind.textContent = " Wind: " + current.wind + " MPH";
+    // create wind element as div to display wind data
+    let currentWind = document.createElement("div");
+    currentWind.textContent = " Wind: " + $(data.current.wind) + " MPH";
     currentCityForecastDisplay.appendChild(currentWind);
 
-    // create humidity element as h4 to display humidity data
-    let currentHumidity = document.createElement("h4");
-    currentHumidity.textContent = " Humidity: " + current.humidity + " %";
+    // create humidity element as div to display humidity data
+    let currentHumidity = document.createElement("div");
+    currentHumidity.textContent = " Humidity: " + $(data.current.humidity) + " %";
     currentCityForecastDisplay.appendChild(currentHumidity);
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 
-    let currentUVIndex = document.createElement("h4");
-    currentUVIndex.textContent = " UV Index:" + current.uvi;
+    let currentUVIndex = document.createElement("div");
+    currentUVIndex.textContent = " UV Index:" + $(data.current.uvi);
     currentCityForecastDisplay.appendChild(currentUVIndex); 
 }
 
