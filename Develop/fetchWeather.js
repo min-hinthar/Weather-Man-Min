@@ -8,7 +8,7 @@ const getCoordinatesAPIurl = `https://api.openweathermap.org/geo/1.0/direct?q={c
 let submitBtn = document.querySelector('#searchBtn');
 let citySearchInputEl = document.querySelector('#citySearch-input');
 let currentCityDisplay = document.querySelector('#display-CurrentCity-div');
-let currentCityForecastDisplay = document.querySelector('#currentCity-Forecast-div');
+let currentCityForecastDisplay = document.querySelector('#fiveDays-Forecast');
 let fiveDaysForecast = document.querySelector('#fiveDays-Forecast');
 let pastCitiesHistory = document.querySelector('#past-cities-History');
 let cities = [];
@@ -34,26 +34,26 @@ $(document).ready(function() {
         // console.log(saveCityHistory);
     };
 
-    let fetchCurrentCity = function(lat, lon){
+    let fetchCurrentCity = function(lat, lon, city){
      fetch(weatherAPIurl.replace("{lat}", lat).replace("{lon}", lon))
      .then(function (response){
         response.json()
         .then(function(data){
             console.log(data);
             // displayCurrentCity(data);
+            displayCurrentCity(data, city);
         })
     });
-    }
-    let fetchCoordinates = function(city) {
-        fetch(getCoordinatesAPIurl.replace("{cityName}", city))
-        .then(function (response){
-            response.json()
-            .then(function(data){
-             var lat = data[0].lat;
-             var lon = data[0].lon;
-            fetchCurrentCity(lat, lon);
-            displayCurrentCity(data, city);
-            })
+}
+let fetchCoordinates = function(city) {
+    fetch(getCoordinatesAPIurl.replace("{cityName}", city))
+    .then(function (response){
+        response.json()
+        .then(function(data){
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+            fetchCurrentCity(lat, lon, data[0].name);
+        })
         })
     }
 
@@ -62,42 +62,44 @@ $(document).ready(function() {
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
 let displayCurrentCity = function (data, city){
     // reset previous searched content
-    currentCityDisplay.textContent="";
-    currentCityDisplay.textContent= $(city);
+    //currentCityDisplay.textContent= city;
 
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
     // create date element as a div to display next to current city 
-    let currentDate = document.createElement("div");
-    currentDate.textContent= (data.current.dt).format("MM/DD/YYYY");
-    currentCityDisplay.appendChild(currentDate);
+    //let currentDate = document.createElement("span");
+    const date = new Date(data.current.dt * 1000);
+
+    //currentDate.textContent = `(${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()})`;
+    currentCityDisplay.textContent= `${city} (${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()})`;
+    //currentCityDisplay.appendChild(currentDate);
 
     // create icon representation element as img to display in div of current city forecast
     let currentCityIcon = document.createElement("img");
-    currentCityIcon.setAttribute(data.current.weather[0].icon);
+    currentCityIcon.setAttribute("src", `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`);
     currentCityDisplay.appendChild(currentCityIcon);
     
     // create temperature element as div to display temperature data
     let currentTemperature = document.createElement("div");
-    currentTemperature.textContent = " Temp: " + $(data.current.temp) + " °F";
+    currentTemperature.textContent =  " Temp: " + `${data.current.temp}` + " °F " ;
     currentCityForecastDisplay.appendChild(currentTemperature);
 
     // create wind element as div to display wind data
     let currentWind = document.createElement("div");
-    currentWind.textContent = " Wind: " + $(data.current.wind) + " MPH";
+    currentWind.textContent = " Wind: "  + `${data.current.wind}` + " MPH";
     currentCityForecastDisplay.appendChild(currentWind);
 
     // create humidity element as div to display humidity data
     let currentHumidity = document.createElement("div");
-    currentHumidity.textContent = " Humidity: " + $(data.current.humidity) + " %";
+    currentHumidity.textContent = " Humidity: " + `${data.current.humidity}` + " %";
     currentCityForecastDisplay.appendChild(currentHumidity);
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 
     let currentUVIndex = document.createElement("div");
-    currentUVIndex.textContent = " UV Index:" + $(data.current.uvi);
+    currentUVIndex.textContent = " UV Index: " + `${data.current.uvi}`;
     currentCityForecastDisplay.appendChild(currentUVIndex); 
 }
 
