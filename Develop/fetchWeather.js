@@ -20,18 +20,18 @@ $(document).ready(function() {
         if (city) {
             // fetch user search input city current + 5 days weather forecast
             fetchCoordinates(city);
-            // reset type input value
-            citySearchInputEl.value="";
         } else {
             alert("Please enter a valid city name on Earth!")
         }
-        saveCityHistory();
+        saveCityHistory(city);
+        // reset type input value
+        citySearchInputEl.value="";
     });
     
     // save searched cities to local storage as 'cities' key
-    let saveCityHistory = function () {
+function saveCityHistory() {
         localStorage.setItem("cities", JSON.stringify(cities));
-        // console.log(saveCityHistory);
+        console.log(cities);
     };
 
     let fetchCurrentCity = function(lat, lon, city){
@@ -67,15 +67,12 @@ let displayCurrentCity = function (data, city){
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 
-    // create date element as a div to display next to current city 
-    //let currentDate = document.createElement("span");
+    // create date to display next to current city 
     const date = new Date(data.current.dt * 1000);
-
-    //currentDate.textContent = `(${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()})`;
+    // using luxon and so needed to convert Unix to datetime [https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript]
     currentCityDisplay.textContent= `${city} (${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()})`;
-    //currentCityDisplay.appendChild(currentDate);
 
-    // create icon representation element as img to display in div of current city forecast
+    // create icon representation element as img to display current city forecast
     let currentCityIcon = document.createElement("img");
     currentCityIcon.setAttribute("src", `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`);
     currentCityDisplay.appendChild(currentCityIcon);
@@ -97,13 +94,10 @@ let displayCurrentCity = function (data, city){
 
 // WHEN I view the UV index
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-
     let currentUVIndex = document.createElement("div");
     currentUVIndex.textContent = " UV Index: " + `${data.current.uvi}`;
     currentCityForecastDisplay.appendChild(currentUVIndex); 
 }
-
-
 
 // WHEN I view future weather conditions for that city
 
