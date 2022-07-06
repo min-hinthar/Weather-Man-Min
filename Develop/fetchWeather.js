@@ -8,7 +8,7 @@ const getCoordinatesAPIurl = `https://api.openweathermap.org/geo/1.0/direct?q={c
 let submitBtn = document.querySelector('#searchBtn');
 let citySearchInputEl = document.querySelector('#citySearch-input');
 let currentCityDisplay = document.querySelector('#display-CurrentCity-div');
-let currentCityForecastDisplay = document.querySelector('#fiveDays-Forecast');
+let currentCityForecastDisplay = document.querySelector('#current-Forecast');
 let fiveDaysForecast = document.querySelector('#fiveDays-Forecast');
 let pastCitiesHistory = document.querySelector('#past-cities-History');
 let cities = [];
