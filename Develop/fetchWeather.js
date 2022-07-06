@@ -9,7 +9,7 @@ let submitBtn = document.querySelector('#searchBtn');
 let citySearchInputEl = document.querySelector('#citySearch-input');
 let currentCityDisplay = document.querySelector('#display-CurrentCity-div');
 let currentCityForecastDisplay = document.querySelector('#current-Forecast');
-let fiveDaysForecast = document.querySelector('#fiveDays-Forecast');
+let fiveDaysForecast = document.querySelector('#fiveDays-Forecast-div');
 let pastCitiesHistory = document.querySelector('#past-cities-History');
 let cities = [];
 
@@ -29,9 +29,16 @@ $(document).ready(function() {
     });
     
     // save searched cities to local storage as 'cities' key
-function saveCityHistory() {
-        localStorage.setItem("cities", JSON.stringify(cities));
-        console.log(cities);
+    function saveCityHistory(city) {
+        let localCities = localStorage.getItem("cities");
+        if (localCities) {
+            localCities = JSON.parse(localCities);
+            localCities.push(city);
+        } else {
+            localCities = [city];
+        }
+        localStorage.setItem("cities", JSON.stringify(localCities));
+        console.log(localCities);
     };
 
     let fetchCurrentCity = function(lat, lon, city){
@@ -42,6 +49,7 @@ function saveCityHistory() {
             console.log(data);
             // displayCurrentCity(data);
             displayCurrentCity(data, city);
+            displayFiveDayForecast(data, city);
         })
     });
 }
@@ -84,7 +92,7 @@ let displayCurrentCity = function (data, city){
 
     // create wind element as div to display wind data
     let currentWind = document.createElement("div");
-    currentWind.textContent = " Wind: "  + `${data.current.wind}` + " MPH";
+    currentWind.textContent = " Wind: "  + `${data.current.wind_speed}` + " MPH";
     currentCityForecastDisplay.appendChild(currentWind);
 
     // create humidity element as div to display humidity data
@@ -93,17 +101,62 @@ let displayCurrentCity = function (data, city){
     currentCityForecastDisplay.appendChild(currentHumidity);
 
 // WHEN I view the UV index
+    // create uvIndex var to store uvi data from response.data.current.uvi
+    let currentUVIndex = $("<div>");
+    let uvIndex = `${data.current.uvi}`;
+    currentUVIndex.text(" UV Index: " + uvIndex);
+    
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-    let currentUVIndex = document.createElement("div");
-    currentUVIndex.textContent = " UV Index: " + `${data.current.uvi}`;
-    currentCityForecastDisplay.appendChild(currentUVIndex); 
-}
+    if (uvIndex >= 0 && uvIndex <= 2){
+        // success-green for favorable 0 - 2 values
+        currentUVIndex.css('background-color', '#28a745').css('color', 'white');
+    } 
+        else if (uvIndex >= 3  && uvIndex <= 5) {
+        // warning-yellow for moderate 3 - 5 values
+        currentUVIndex.css('background-color', '#ffc107').css('color', 'white');
+    }
+        else {
+        // danger-red for severe 6+ values
+        currentUVIndex.css('background-color', '#dc3545').css('color', 'white');
+    };
+    
+    currentCityForecastDisplay.appendChild(currentUVIndex.get(0));
+};
 
 // WHEN I view future weather conditions for that city
-
-
+let currentfiveDaysForecast = function (data, city) {
+    let forecast = [];
+    for (let i = 1; i < 6; i++) {
+        let currentforecast = { 
+            date: data.daily[i].dt,
+            icon: data.daily[i].weather.icon,
+            temp: data.daily[i].temp.day,
+            wind: data.daily[i].wind_speed,
+            humidity: data.daily[i].humidity,
+        } 
+        forecast.push(currentforecast)
+    };
+    return forecast;
+}
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+let displayFiveDayForecast = function (data, city) {
+    const forecast = currentfiveDaysForecast (data)
+    forecast.forEach((current) => {
+        // dynamically generate cards
+        const date = new Date(current.date * 1000);
+        const dateEl = $('<h5>').text(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`)
+        const windEl = $('<p>').text(`Wind: ${current.wind}`);
+        const cardBodyEl = $('<div>').addClass('card-body');
 
+        cardBodyEl.append(dateEl);
+        cardBodyEl.append(windEl);
+        const cardEl = $('<div>').addClass('card');
+        cardEl.append(cardBodyEl);
+
+        fiveDaysForecast.appendChild(cardEl.get(0));
+    })
+
+}
 
 // WHEN I click on a city in the search history
 

@@ -14,7 +14,7 @@
 }
 
 body {
-display: flex;
+ /*display: flex;*/
     flex-direction: row;
     text-align: center;
 }
@@ -22,4 +22,10 @@ display: flex;
 .row {
     display: inline-block;
     flex-direction: column;
+}
+
+#fiveDays-Forecast-div {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px
 }
