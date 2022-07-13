@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Weather-Mann Minn!</title>
     <!-- Bootstrap linked for CSS -->
-    <link rel="stylesheet" href="./Develop/stylesheet.css">
     <!-- https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Develop/style.css">
 </head>
 <body>
     <header>
@@ -19,10 +19,10 @@
             <h3>Your No.1 trusted source of shifty weather phenomenons throughout the WORLD!</h3>
         </div>
     </header>
-    <main class="body-container">
+    <main class="body-container container">
     <!-- section for text input area -->
         <div class="row">
-            <side class="typeSeach-container col-12 col-md-4 col-lg-3">
+            <div class="typeSeach-container col-4">
                 <div class="typeSearch-div card">
                     <!-- create form element with class+id for search input in text form-->
                     <form class="typeSearch-form card-body" id="citySearch-form">
@@ -37,9 +37,9 @@
                 <div class="past-cities card-body" id="past-cities-History">
                     Search History    
                 </div> 
-            </side>
+            </div>
             <!-- section to display current city search results -->
-            <section class="searchResults-container">
+            <div class="searchResults-container col">
                 <div id="display-searchResults-container">
                     <div>
                         <h3 id="display-CurrentCity-div">
@@ -50,7 +50,7 @@
                     <div id="fiveDays-Forecast-div">
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </main>
     <!-- Bootstrap linked for Script -->

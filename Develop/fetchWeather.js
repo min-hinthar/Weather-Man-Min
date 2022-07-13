@@ -26,14 +26,15 @@ $(document).ready(function() {
         // save search city history
         saveCityHistory(city);
         // append search city history to past-cities-history div
-        if (!cities.include(city)) {
+        if (!cities.includes(city)) {
             cities.push(city);
             let searchedCity = $(
-                `<li class='list-group-item'>
-                ${city}
-                </li>
-                `
+                `<div><button type="button" class="btn btn-primary history-btn">${city}</button></div>`
             );
+            searchedCity.on('click', function() {
+                let newCity = $(this).text();
+                fetchCoordinates(newCity)
+            })
             $(pastCitiesHistory).append(searchedCity)
         };
 
@@ -84,6 +85,8 @@ let fetchCoordinates = function(city) {
 let displayCurrentCity = function (data, city){
     // reset previous searched content
     //currentCityDisplay.textContent= city;
+    currentCityForecastDisplay.innerHTML= '';
+    currentCityDisplay.innerHTML='';
 
 // WHEN I view current weather conditions for that city
 // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
@@ -142,7 +145,7 @@ let currentfiveDaysForecast = function (data, city) {
     for (let i = 1; i < 6; i++) {
         let currentforecast = { 
             date: data.daily[i].dt,
-            icon: data.daily[i].weather.icon,
+            icon: data.daily[i].weather[0].icon,
             temp: data.daily[i].temp.day,
             wind: data.daily[i].wind_speed,
             humidity: data.daily[i].humidity,
@@ -154,14 +157,15 @@ let currentfiveDaysForecast = function (data, city) {
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 let displayFiveDayForecast = function (data, city) {
     const forecast = currentfiveDaysForecast (data)
+    fiveDaysForecast.innerHTML= '';
     forecast.forEach((current) => {
         // dynamically generate cards
         const date = new Date(current.date * 1000);
         const dateEl = $('<h5>').text(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
-        const iconEl = $('<img>').text("src", `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`);
-        const tempEl = $('<p>').text(`Wind: ${current.temp}`);
+        const iconEl = $('<img>').attr("src", `http://openweathermap.org/img/wn/${current.icon}.png`);
+        const tempEl = $('<p>').text(`Temp: ${current.temp}`);
         const windEl = $('<p>').text(`Wind: ${current.wind}`);
-        const humidEl = $('<p>').text(`Wind: ${current.humidity}`);
+        const humidEl = $('<p>').text(`Humidity: ${current.humidity}`);
         const cardBodyEl = $('<div>').addClass('card-body');
 
         cardBodyEl.append(dateEl);
@@ -178,7 +182,7 @@ let displayFiveDayForecast = function (data, city) {
 }
 
 // WHEN I click on a city in the search history
-$(document).on('click', '.list-group-item', function () {
+$(document).on('click', '.history-btn', function () {
     let cityList = $(this).text();
     // THEN I am again presented with current and future conditions for that city
     displayCurrentCity(cityList);
