@@ -23,7 +23,20 @@ $(document).ready(function() {
         } else {
             alert("Please enter a valid city name on Earth!")
         }
+        // save search city history
         saveCityHistory(city);
+        // append search city history to past-cities-history div
+        if (cities.include(city)) {
+            cities.push(city);
+            let searchedCity = $(
+                `<li class='list-group-item'>
+                ${city}
+                </li>
+                `
+            );
+            $(pastCitiesHistory).append(searchedCity)
+        };
+
         // reset type input value
         citySearchInputEl.value="";
     });
@@ -159,6 +172,8 @@ let displayFiveDayForecast = function (data, city) {
 }
 
 // WHEN I click on a city in the search history
-
-
-// THEN I am again presented with current and future conditions for that city
+$(document).on('click', '.list-group-item', function () {
+    let cityList = $(this).text();
+    // THEN I am again presented with current and future conditions for that city
+    displayCurrentCity(cityList);
+});
