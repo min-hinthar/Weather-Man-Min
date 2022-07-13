@@ -26,7 +26,7 @@ $(document).ready(function() {
         // save search city history
         saveCityHistory(city);
         // append search city history to past-cities-history div
-        if (cities.include(city)) {
+        if (!cities.include(city)) {
             cities.push(city);
             let searchedCity = $(
                 `<li class='list-group-item'>
@@ -157,12 +157,18 @@ let displayFiveDayForecast = function (data, city) {
     forecast.forEach((current) => {
         // dynamically generate cards
         const date = new Date(current.date * 1000);
-        const dateEl = $('<h5>').text(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`)
+        const dateEl = $('<h5>').text(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+        const iconEl = $('<img>').text("src", `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`);
+        const tempEl = $('<p>').text(`Wind: ${current.temp}`);
         const windEl = $('<p>').text(`Wind: ${current.wind}`);
+        const humidEl = $('<p>').text(`Wind: ${current.humidity}`);
         const cardBodyEl = $('<div>').addClass('card-body');
 
         cardBodyEl.append(dateEl);
+        cardBodyEl.append(iconEl);
+        cardBodyEl.append(tempEl);
         cardBodyEl.append(windEl);
+        cardBodyEl.append(humidEl);
         const cardEl = $('<div>').addClass('card');
         cardEl.append(cardBodyEl);
 

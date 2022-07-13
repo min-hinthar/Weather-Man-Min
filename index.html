@@ -12,9 +12,9 @@
 </head>
 <body>
     <header>
-        <div class="page-header" >
+        <nav class="page-header navbar p-3" >
             <h1>Welcome to Weather-Mann Minn!</h1>
-        </div>
+        </nav>
         <div>
             <h3>Your No.1 trusted source of shifty weather phenomenons throughout the WORLD!</h3>
         </div>
@@ -22,10 +22,10 @@
     <main class="body-container">
     <!-- section for text input area -->
         <div class="row">
-            <side class="typeSeach-container">
-                <div class="typeSearch-div">
+            <side class="typeSeach-container col-12 col-md-4 col-lg-3">
+                <div class="typeSearch-div card">
                     <!-- create form element with class+id for search input in text form-->
-                    <form class="typeSearch-form" id="citySearch-form">
+                    <form class="typeSearch-form card-body" id="citySearch-form">
                         <h5>Search for a city anywhere on Earth!</h5>
                         <input id="citySearch-input" class="textSearch-input" type="text" placeholder="...type a city name e.g Los Angeles">
                         <button class="btn btn-secondary" id="searchBtn" type="submit">
@@ -34,7 +34,8 @@
                     </form>    
                 </div>
                 <!-- create local storage list of cities already searched by user  -->
-                <div class="past-cities" id="past-cities-History">    
+                <div class="past-cities card-body" id="past-cities-History">
+                    Search History    
                 </div> 
             </side>
             <!-- section to display current city search results -->
