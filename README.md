@@ -1,5 +1,8 @@
 # Project Title [Weather-Man-Min]
 ![License Badges](https://img.shields.io/badge/LICENSE-MIT-blue)
+
+![Snapshot](./Develop/assets/Screenshot.jpg)
+
 -----
 
 ## Table of Contents

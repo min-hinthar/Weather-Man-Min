@@ -2,3 +2,21 @@
     margin-bottom: 4px;
     margin-top: 4px;
 }
+
+.display-searchResults-container {
+    padding: 5px;
+    margin: 5px;
+}
+
+.body-bk-color {
+    background-image: repeating-linear-gradient(purple, cyan);
+}
+
+.typeSearch-div {
+    background-image: repeating-linear-gradient(rgb(126, 185, 15), rgb(255, 106, 0));
+
+}
+
+.footer {
+    text-align: center;
+}

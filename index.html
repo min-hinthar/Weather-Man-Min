@@ -12,47 +12,55 @@
 </head>
 <body>
     <header>
-        <nav class="page-header navbar p-3" >
+        <nav class="page-header navbar bg-warning justify-content-center">
             <h1>Welcome to Weather-Mann Minn!</h1>
         </nav>
-        <div>
+        <div class="alert alert-info">
             <h3>Your No.1 trusted source of shifty weather phenomenons throughout the WORLD!</h3>
         </div>
     </header>
     <main class="body-container container">
+        <div class="body-bk-color">
     <!-- section for text input area -->
-        <div class="row">
-            <div class="typeSeach-container col-4">
-                <div class="typeSearch-div card">
-                    <!-- create form element with class+id for search input in text form-->
-                    <form class="typeSearch-form card-body" id="citySearch-form">
-                        <h5>Search for a city anywhere on Earth!</h5>
-                        <input id="citySearch-input" class="textSearch-input" type="text" placeholder="...type a city name e.g Los Angeles">
-                        <button class="btn btn-secondary" id="searchBtn" type="submit">
-                            SEARCH
-                        </button>
-                    </form>    
-                </div>
-                <!-- create local storage list of cities already searched by user  -->
-                <div class="past-cities card-body" id="past-cities-History">
-                    Search History    
-                </div> 
-            </div>
-            <!-- section to display current city search results -->
-            <div class="searchResults-container col">
-                <div id="display-searchResults-container">
-                    <div>
-                        <h3 id="display-CurrentCity-div">
-                        </h3>
-                    </div>                   
-                    <div id="current-Forecast"> 
+            <div class="row body-bk-color">
+                <div class="typeSeach-container col-4">
+                    <div class="typeSearch-div card">
+                        <!-- create form element with class+id for search input in text form-->
+                        <form class="typeSearch-form card-body" id="citySearch-form">
+                            <h5>Search for a city anywhere on Earth!</h5>
+                            <input id="citySearch-input" class="textSearch-input" type="text" placeholder="...type a city name e.g Los Angeles">
+                            <button class="btn btn-danger" id="searchBtn" type="submit">
+                                SEARCH
+                            </button>
+                        </form>    
                     </div>
-                    <div id="fiveDays-Forecast-div">
+                    <!-- create local storage list of cities already searched by user  -->
+                    <div class="past-cities card-body border border-warning rounded" id="past-cities-History">
+                        Search History    
+                    </div> 
+                </div>
+                <!-- section to display current city search results -->
+                <div class="searchResults-container col border border-success rounded">
+                    <div id="display-searchResults-container">
+                        <div>
+                            <h3 id="display-CurrentCity-div">
+                            </h3>
+                        </div>                   
+                        <div id="current-Forecast"> 
+                        </div>
+                        <div id="fiveDays-Forecast-div" class="d-flex justify-content-around">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <br>
+    <footer class="bg-warning text-lg-start"> 
+        <div class="footer">
+            Made with [ 💌 ] by Min © 2022 
+        </div>
+    </footer>
     <!-- Bootstrap linked for Script -->
     <!-- https://getbootstrap.com/docs/5.2/getting-started/introduction/ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

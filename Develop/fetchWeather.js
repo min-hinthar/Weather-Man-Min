@@ -120,7 +120,7 @@ let displayCurrentCity = function (data, city){
     // create uvIndex var to store uvi data from response.data.current.uvi
     let currentUVIndex = $("<div>");
     let uvIndex = `${data.current.uvi}`;
-    currentUVIndex.text(" UV Index: " + uvIndex);
+    currentUVIndex.text(" UV Index: " + uvIndex).css('width', '100px');
     
 // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
     if (uvIndex >= 0 && uvIndex <= 2){
